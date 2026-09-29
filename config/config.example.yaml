@@ -1,0 +1,56 @@
+# =============================================================================
+#  FLYBOT -- example configuration
+#  Copy to config/config.yaml and adjust. Everything here is simulation-safe:
+#  there is nowhere in this file to put a private key, seed phrase, or API
+#  secret, because the shipped adapter never needs one.
+# =============================================================================
+
+scanner:
+  poll_interval_ms: 750        # how often the scanner polls the adapter
+  min_pair_age_seconds: 5      # ignore pairs younger than this (let the dust settle)
+  max_pair_age_seconds: 600    # stop caring about a pair after 10 minutes
+  chains: ["simulated"]
+  dedupe_window_seconds: 3600
+
+evaluation:
+  weights:
+    liquidity_score: 0.20
+    momentum_score: 0.25
+    distribution_score: 0.20
+    safety_score: 0.25
+    activity_score: 0.10
+  require_lp_lock_or_burn_pct: 60.0
+  require_mint_authority_revoked: true
+  max_top10_holder_pct: 45.0
+  max_dev_wallet_pct: 8.0
+
+decision:
+  buy_confidence_threshold: 0.62
+  strong_conviction_threshold: 0.82
+  take_profit_pct: 0.60          # exit at +60%
+  stop_loss_pct: -0.22           # exit at -22%
+  trailing_stop_pct: -0.18       # give back 18% from peak -> exit
+  trailing_stop_activate_pct: 0.25   # only trail once up +25%
+  max_hold_seconds: 1800         # hard time stop at 30 minutes
+  confidence_decay_check_seconds: 120
+
+risk:
+  starting_cash_usd: 1000.0
+  max_concurrent_positions: 5
+  max_position_size_usd: 120.0
+  max_position_pct_of_equity: 0.15
+  max_daily_loss_pct: 0.20       # circuit breaker at -20% equity for the day
+  max_daily_trades: 60
+  loss_streak_cooldown_trades: 3
+  loss_streak_cooldown_seconds: 300
+
+execution:
+  mode: simulation               # only supported value in this repository
+  slippage_bps: 80
+  fee_bps: 30
+  latency_ms: 150
+
+logging:
+  level: INFO
+  style: retro_terminal
+  log_dir: logs
