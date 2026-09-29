@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/flybot-logo.png" width="300" alt="FLYBOT" />
+<img src="flybott.png" width="300" alt="FLYBOT" />
 
 # F L Y B O T
 
